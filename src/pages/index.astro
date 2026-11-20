@@ -1,0 +1,86 @@
+---
+import '../styles/global.css';
+---
+
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>住房項目</title>
+  </head>
+  <body>
+    <div class="app" id="app">
+      <aside class="sidebar" aria-label="側邊欄">
+        <div class="lang-toggle" role="group" aria-label="語言">
+          <button type="button" class="lang-btn active" id="lang-hant" aria-pressed="true">繁體中文</button>
+          <button type="button" class="lang-btn" id="lang-hans" aria-pressed="false">简体中文</button>
+        </div>
+
+        <ul class="nav-list">
+          <li class="nav-item">
+            <button type="button" class="active" id="nav-search" aria-current="page">搜尋房源</button>
+          </li>
+        </ul>
+
+        <div class="brand" id="brand-name">住房項目</div>
+      </aside>
+
+      <main class="main">
+        <header class="main-header">
+          <h1 id="page-title">搜尋房源</h1>
+        </header>
+
+        <div class="main-body">
+          <section class="search-view visible" id="search-view">
+            <div class="filter-panel">
+              <div class="filter-row">
+                <span class="filter-label" id="area-label">主要地區</span>
+                <div class="checkbox-group" id="area-group"></div>
+              </div>
+              <div class="filter-row">
+                <span class="filter-label" id="district-label">分區</span>
+                <div class="checkbox-group" id="district-group"></div>
+              </div>
+              <div class="filter-actions">
+                <button type="button" class="btn btn-primary" id="search-btn" disabled>搜尋</button>
+                <button type="button" class="btn btn-ghost" id="clear-btn">清除</button>
+                <span class="inline-prompt" id="search-prompt">請先選擇至少一個分區</span>
+              </div>
+            </div>
+
+            <div class="results-meta" id="results-meta" hidden></div>
+            <div class="results-list" id="results-list"></div>
+            <div class="empty-state" id="empty-state">選擇地區後按「搜尋」以顯示房源。</div>
+          </section>
+
+          <section class="detail-view" id="detail-view">
+            <button type="button" class="back-link" id="back-btn">← 返回搜尋結果</button>
+            <div class="detail-layout">
+              <div class="gallery">
+                <div class="main-image-wrap">
+                  <img class="main-image" id="main-image" alt="" />
+                </div>
+                <div class="thumbs" id="thumbs"></div>
+              </div>
+              <div class="detail-info">
+                <h2 id="detail-title"></h2>
+                <p class="detail-meta" id="detail-meta"></p>
+                <h3 class="detail-section-title" id="units-title">此樓宇單位</h3>
+                <ul class="unit-list" id="units-list"></ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      import { initSearchApp } from '../scripts/search-app';
+      const root = document.getElementById('app');
+      if (root) initSearchApp(root);
+    </script>
+  </body>
+</html>
