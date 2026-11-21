@@ -19,6 +19,15 @@
     ]
   },
   {
+    "building name": "灣仔軒尼詩大廈",
+    "district": "灣仔區",
+    "rent": 60000,
+    "image": [
+      "room03/1.png",
+      "room03/2.png"
+    ]
+  },
+  {
     "building name": "太古城中心單位",
     "district": "東區",
     "rent": 21000,
