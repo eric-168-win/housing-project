@@ -31,7 +31,7 @@ const AREA_DISTRICTS: Record<string, string[]> = {
 const LABELS = {
   searchNav: '搜尋房源',
   pageTitle: '搜尋房源',
-  brand: '住房項目',
+  brand: '住房項目 (中介郭先生)',
   areaLabel: '主要地區',
   subDistrictLabel: '分區',
   search: '搜尋',
@@ -50,7 +50,7 @@ const LABELS = {
   genderMale: '只限男性',
   genderFemale: '只限女性',
   genderAny: '性別不限',
-  whatsapp: 'WhatsApp 連結(請按我)',
+  whatsapp: '透過WhatsApp連結，聯絡郭先生 (請按我)',
   contactNote: '請提早至少1日預約上門參觀。不要來電。謝謝。',
   langHant: '繁體中文',
   langHans: '简体中文',
