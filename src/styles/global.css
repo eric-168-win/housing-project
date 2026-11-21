@@ -547,6 +547,35 @@ select {
   border-color: transparent transparent transparent #fff;
 }
 
+.contact-section {
+  margin-top: 28px;
+  padding: 18px 20px;
+  border: 1px solid #b7e0c2;
+  border-radius: 6px;
+  background: #e8f8ee;
+}
+
+.whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #128c7e;
+  text-decoration: none;
+}
+
+.whatsapp-link:hover {
+  color: #075e54;
+  text-decoration: underline;
+}
+
+.contact-note {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #1b5e3b;
+}
+
 @media (max-width: 900px) {
   .app {
     flex-direction: column;
