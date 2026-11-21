@@ -130,7 +130,6 @@ export function initSearchApp(root: HTMLElement): void {
     backBtn: root.querySelector<HTMLButtonElement>('#back-btn')!,
     selectionLabel: root.querySelector<HTMLElement>('#selection-label')!,
     detailTitle: root.querySelector<HTMLElement>('#detail-title')!,
-    detailMeta: root.querySelector<HTMLElement>('#detail-meta')!,
     mainImage: root.querySelector<HTMLImageElement>('#main-image')!,
     mainVideo: root.querySelector<HTMLIFrameElement>('#main-video')!,
     thumbs: root.querySelector<HTMLElement>('#thumbs')!,
@@ -178,9 +177,8 @@ export function initSearchApp(root: HTMLElement): void {
 
     els.navSearch.textContent = t(LABELS.searchNav, lang);
     els.brand.textContent = t(LABELS.brand, lang);
-    els.pageTitle.textContent = activeBuilding
-      ? t(activeBuilding.buildingName, lang)
-      : t(LABELS.pageTitle, lang);
+    // Building name lives only in the detail left panel — keep chrome as page title.
+    els.pageTitle.textContent = t(LABELS.pageTitle, lang);
 
     els.areaLabel.textContent = t(LABELS.areaLabel, lang);
     els.districtLabel.textContent = t(LABELS.subDistrictLabel, lang);
@@ -397,7 +395,7 @@ export function initSearchApp(root: HTMLElement): void {
 
   function openDetail(group: BuildingGroup): void {
     activeBuilding = group;
-    selectedUnit = group.rooms.length >= 2 ? 'all' : 0;
+    selectedUnit = 0;
     activeMediaIndex = 0;
     showDetail();
     renderDetail();
@@ -436,11 +434,9 @@ export function initSearchApp(root: HTMLElement): void {
     const group = activeBuilding;
     const media = buildMedia(group);
     if (activeMediaIndex >= media.length) activeMediaIndex = 0;
-    const districts = [...new Set(group.rooms.map((r) => t(r.district, lang)))].join('、');
 
-    els.pageTitle.textContent = t(group.buildingName, lang);
+    els.pageTitle.textContent = t(LABELS.pageTitle, lang);
     els.detailTitle.textContent = t(group.buildingName, lang);
-    els.detailMeta.textContent = `${t(LABELS.district, lang)}：${districts} · ${t(LABELS.roomCount(group.rooms.length), lang)}`;
     els.unitsTitle.textContent = t(LABELS.unitsInBuilding, lang);
     els.selectionLabel.hidden = false;
     els.selectionLabel.textContent = selectionLabelText(group);
