@@ -3,174 +3,29 @@
     "building name": "中環廣場服務式公寓",
     "district": "中西區",
     "rent": 18500,
-    "image": ["room01/1.png", "room01/2.png", "room01/3.png"]
-  },
-  {
-    "building name": "中環廣場服務式公寓",
-    "district": "中西區",
-    "rent": 16800,
-    "image": ["room01/2.png", "room01/1.png", "room01/3.png"]
+    "image": [
+      "room01/1.png",
+      "room01/2.png",
+      "room01/3.png"
+    ]
   },
   {
     "building name": "灣仔軒尼詩大廈",
     "district": "灣仔區",
     "rent": 14200,
-    "image": ["room02/1.png", "room02/2.png"]
-  },
-  {
-    "building name": "灣仔軒尼詩大廈",
-    "district": "灣仔區",
-    "rent": 12800,
-    "image": ["room02/2.png", "room02/1.png"]
-  },
-  {
-    "building name": "灣仔軒尼詩大廈",
-    "district": "灣仔區",
-    "rent": 15500,
-    "image": ["room02/1.png", "room02/2.png"]
+    "image": [
+      "room02/1.png",
+      "room02/2.png"
+    ]
   },
   {
     "building name": "太古城中心單位",
     "district": "東區",
     "rent": 21000,
-    "image": ["room03/1.png", "room03/2.png", "room03/3.png"]
-  },
-  {
-    "building name": "太古城中心單位",
-    "district": "東區",
-    "rent": 19800,
-    "image": ["room03/2.png", "room03/3.png", "room03/1.png"]
-  },
-  {
-    "building name": "香港仔海傍花園",
-    "district": "南區",
-    "rent": 11500,
-    "image": ["room04/1.png", "room04/2.png"]
-  },
-  {
-    "building name": "尖沙咀海港城公寓",
-    "district": "油尖旺區",
-    "rent": 22000,
-    "image": ["room05/1.png", "room05/2.png", "room05/3.png"]
-  },
-  {
-    "building name": "尖沙咀海港城公寓",
-    "district": "油尖旺區",
-    "rent": 20500,
-    "image": ["room05/2.png", "room05/1.png", "room05/3.png"]
-  },
-  {
-    "building name": "尖沙咀海港城公寓",
-    "district": "油尖旺區",
-    "rent": 23800,
-    "image": ["room05/3.png", "room05/1.png", "room05/2.png"]
-  },
-  {
-    "building name": "深水埗西九龍中心旁",
-    "district": "深水埗區",
-    "rent": 9800,
-    "image": ["room06/1.png", "room06/2.png"]
-  },
-  {
-    "building name": "深水埗西九龍中心旁",
-    "district": "深水埗區",
-    "rent": 10500,
-    "image": ["room06/2.png", "room06/1.png"]
-  },
-  {
-    "building name": "九龍城衙前圍道樓",
-    "district": "九龍城區",
-    "rent": 13200,
-    "image": ["room07/1.png", "room07/2.png", "room07/3.png"]
-  },
-  {
-    "building name": "黃大仙龍翔中心",
-    "district": "黃大仙區",
-    "rent": 11000,
-    "image": ["room08/1.png", "room08/2.png"]
-  },
-  {
-    "building name": "觀塘創紀之城公寓",
-    "district": "觀塘區",
-    "rent": 14800,
-    "image": ["room09/1.png", "room09/2.png", "room09/3.png"]
-  },
-  {
-    "building name": "觀塘創紀之城公寓",
-    "district": "觀塘區",
-    "rent": 15600,
-    "image": ["room09/2.png", "room09/1.png", "room09/3.png"]
-  },
-  {
-    "building name": "葵芳新都會廣場旁",
-    "district": "葵青區",
-    "rent": 10200,
-    "image": ["room10/1.png", "room10/2.png"]
-  },
-  {
-    "building name": "荃灣廣場服務式單位",
-    "district": "荃灣區",
-    "rent": 11800,
-    "image": ["room11/1.png", "room11/2.png", "room11/3.png", "room11/4.png"]
-  },
-  {
-    "building name": "荃灣廣場服務式單位",
-    "district": "荃灣區",
-    "rent": 12500,
-    "image": ["room11/2.png", "room11/3.png", "room11/1.png", "room11/4.png"]
-  },
-  {
-    "building name": "屯門市廣場雅緻閣",
-    "district": "屯門區",
-    "rent": 8900,
-    "image": ["room12/1.png", "room12/2.png"]
-  },
-  {
-    "building name": "元朗形點雅舍",
-    "district": "元朗區",
-    "rent": 9500,
-    "image": ["room01/1.png", "room01/3.png"]
-  },
-  {
-    "building name": "上水廣場精選單位",
-    "district": "北區",
-    "rent": 8700,
-    "image": ["room02/1.png", "room02/2.png"]
-  },
-  {
-    "building name": "大埔超級城公寓",
-    "district": "大埔區",
-    "rent": 9200,
-    "image": ["room03/1.png", "room03/2.png"]
-  },
-  {
-    "building name": "沙田新城市廣場旁",
-    "district": "沙田區",
-    "rent": 13500,
-    "image": ["room04/1.png", "room04/2.png"]
-  },
-  {
-    "building name": "沙田新城市廣場旁",
-    "district": "沙田區",
-    "rent": 14200,
-    "image": ["room04/2.png", "room04/1.png"]
-  },
-  {
-    "building name": "將軍澳東港城單位",
-    "district": "西貢區",
-    "rent": 12800,
-    "image": ["room05/1.png", "room05/2.png"]
-  },
-  {
-    "building name": "東涌市中心海景樓",
-    "district": "離島區",
-    "rent": 10800,
-    "image": ["room06/1.png", "room06/2.png"]
-  },
-  {
-    "building name": "東涌市中心海景樓",
-    "district": "離島區",
-    "rent": 11500,
-    "image": ["room06/2.png", "room06/1.png"]
+    "image": [
+      "room03/1.png",
+      "room03/2.png",
+      "room03/3.png"
+    ]
   }
 ]
