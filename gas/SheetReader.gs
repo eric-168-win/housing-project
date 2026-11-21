@@ -28,6 +28,7 @@ function readRoomsFromSheet_() {
     district: headers.indexOf('district'),
     building: headers.indexOf('building'),
     codeName: headers.indexOf('code name'),
+    gender: headers.indexOf('gender'),
     rent: headers.indexOf('rent'),
     image: headers.indexOf('image'),
     youtube: headers.indexOf('youtube link')
@@ -41,6 +42,7 @@ function readRoomsFromSheet_() {
     var building = String(row[idx.building] || '').trim();
     var district = String(row[idx.district] || '').trim();
     var codeName = String(row[idx.codeName] || '').trim();
+    var gender = String(row[idx.gender] || '').trim().toLowerCase();
     var rentRaw = row[idx.rent];
     var imageRaw = String(row[idx.image] || '').trim();
     var youtube = String(row[idx.youtube] || '').trim();
@@ -49,6 +51,7 @@ function readRoomsFromSheet_() {
       !building &&
       !district &&
       !codeName &&
+      !gender &&
       !imageRaw &&
       !youtube &&
       (rentRaw === '' || rentRaw === null || rentRaw === undefined)
@@ -57,6 +60,9 @@ function readRoomsFromSheet_() {
     }
     if (!building) {
       throw new Error('Row ' + (r + 1) + ': building is required.');
+    }
+    if (gender && gender !== 'm' && gender !== 'f') {
+      throw new Error('Row ' + (r + 1) + ': gender must be "m", "f", or blank (got "' + gender + '").');
     }
 
     var images = imageRaw
@@ -83,6 +89,7 @@ function readRoomsFromSheet_() {
       district: district,
       building: building,
       'code name': codeName,
+      gender: gender,
       rent: rent,
       image: images,
       'youtube link': youtube

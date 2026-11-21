@@ -4,6 +4,7 @@ export type Room = {
   district: string;
   building: string;
   'code name': string;
+  gender?: string;
   rent: number | string;
   image: string[];
   'youtube link'?: string;
@@ -46,6 +47,9 @@ const LABELS = {
   rentPerMonth: '月租',
   roomCount: (n: number) => `${n} 個單位`,
   codeRoom: (code: string) => `${code}房`,
+  genderMale: '只限男性',
+  genderFemale: '只限女性',
+  genderAny: '性別不限',
   langHant: '繁體中文',
   langHans: '简体中文',
   hkd: (n: string | number) => `HK$ ${Number(n).toLocaleString('en-HK')}`,
@@ -63,6 +67,15 @@ function imageUrl(rel: string): string {
 
 function formatRent(rent: string | number, lang: Lang): string {
   return t(LABELS.hkd(rent), lang);
+}
+
+function genderLabel(gender: string | undefined, lang: Lang): string {
+  const g = String(gender || '')
+    .trim()
+    .toLowerCase();
+  if (g === 'm') return t(LABELS.genderMale, lang);
+  if (g === 'f') return t(LABELS.genderFemale, lang);
+  return t(LABELS.genderAny, lang);
 }
 
 function youtubeId(url: string | undefined): string | null {
@@ -471,7 +484,10 @@ export function initSearchApp(root: HTMLElement): void {
       const rent = document.createElement('p');
       rent.className = 'unit-rent';
       rent.textContent = `${t(LABELS.rentPerMonth, lang)} ${formatRent(room.rent, lang)}`;
-      btn.append(line1, rent);
+      const gender = document.createElement('p');
+      gender.className = 'unit-gender';
+      gender.textContent = genderLabel(room.gender, lang);
+      btn.append(line1, rent, gender);
       btn.addEventListener('click', () => selectUnit(index));
       li.append(btn);
       els.unitsList.append(li);

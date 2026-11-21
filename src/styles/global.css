@@ -443,6 +443,12 @@ select {
   font-size: 14px;
   font-weight: 600;
   color: #c45500;
+  margin: 0 0 4px;
+}
+
+.unit-gender {
+  font-size: 13px;
+  color: var(--text-muted);
   margin: 0;
 }
 

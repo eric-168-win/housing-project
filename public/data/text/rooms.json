@@ -1,48 +1,38 @@
 [
   {
-    "district": "中西區",
-    "building": "中環廣場服務式公寓",
+    "district": "九龍城區",
+    "building": "寶石戲院大廈",
     "code name": "A",
+    "gender": "m",
     "rent": 18500,
-    "image": [
-      "room01/1.png",
-      "room01/2.png",
-      "room01/3.png"
-    ],
+    "image": ["room01/1.png", "room01/2.png", "room01/3.png"],
     "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
   },
   {
     "district": "灣仔區",
     "building": "灣仔軒尼詩大廈",
     "code name": "A",
+    "gender": "f",
     "rent": 14200,
-    "image": [
-      "room02/1.png",
-      "room02/2.png"
-    ],
+    "image": ["room02/1.png", "room02/2.png"],
     "youtube link": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
   },
   {
     "district": "灣仔區",
     "building": "灣仔軒尼詩大廈",
     "code name": "B",
+    "gender": "",
     "rent": 12800,
-    "image": [
-      "room03/1.png",
-      "room03/2.png"
-    ],
+    "image": ["room03/1.png", "room03/2.png"],
     "youtube link": "https://www.youtube.com/watch?v=EngW7tLk6R8"
   },
   {
     "district": "東區",
     "building": "太古城中心單位",
     "code name": "A",
+    "gender": "m",
     "rent": 21000,
-    "image": [
-      "room03/1.png",
-      "room03/2.png",
-      "room03/3.png"
-    ],
+    "image": ["room03/1.png", "room03/2.png", "room03/3.png"],
     "youtube link": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
   }
 ]
