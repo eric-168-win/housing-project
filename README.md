@@ -1,6 +1,6 @@
-# 住房項目（Phase 1）
+# 住房項目
 
-Static AstroJS local preview for Hong Kong housing search. Traditional Chinese source data, VS Code Light Mode UI, district filters, Google-style results, and a Taobao-style detail view.
+Static AstroJS housing search site (Hong Kong). Traditional Chinese source data, VS Code Light Mode UI, district filters, Google-style results, and a Taobao-style detail view. Sheet + Drive sync via Apps Script (`gas/`).
 
 ## Requirements
 
@@ -22,20 +22,18 @@ Open the URL printed by Astro (default: [http://localhost:4321](http://localhost
 | `npm run build`   | Build static site to `./dist/`  |
 | `npm run preview` | Preview the production build    |
 
-## Mock data
+## Data
 
 - Rooms: `public/data/text/rooms.json` (Traditional Chinese)
 - Images: `public/data/image/<roomId>/<n>.png`
 - UI image URLs resolve as `/data/image/...`
-- Regenerate placeholder images: `node scripts/generate-mock-images.mjs`
+- Source of truth for production sync: Google Sheet + Drive (see Phase 3 / `gas/README.md`)
 
-## Phase 1 features
+## Live
 
-- Left sidebar language toggle: 繁體中文 (default) ↔ 简体中文 via `opencc-js`
-- Nav: 「搜尋房源」
-- Multi-select 香港島 / 九龍 / 新界, then 18 sub-districts
-- Search requires ≥1 sub-district
-- Results grouped by building name with thumbnail + `Building Name (N)`
-- Detail: large image, thumbnail carousel, district / rent / units in building
+- GitHub: https://github.com/eric-168-win/housing-project
+- Cloudflare Pages: https://housing-project.pages.dev/
 
-Phase 2–4 (deploy, sync, etc.) are out of scope for this folder setup.
+## Sheet → GitHub sync (Phase 4)
+
+See **[gas/README.md](gas/README.md)** for clasp push, Fine-grained PAT (`GITHUB_PAT` Script Property), and the **住房項目 → update rooms data** menu.

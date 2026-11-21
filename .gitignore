@@ -17,6 +17,10 @@ pnpm-debug.log*
 .env
 .env.production
 
+# clasp credentials (never commit)
+.clasprc.json
+**/.clasprc.json
+
 # macOS-specific files
 .DS_Store
 
