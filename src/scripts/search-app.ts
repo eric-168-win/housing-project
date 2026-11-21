@@ -21,8 +21,6 @@ type MediaItem =
   | { kind: 'image'; src: string; roomIndex: number }
   | { kind: 'youtube'; videoId: string; url: string; roomIndex: number };
 
-type UnitSelection = 'all' | number;
-
 const AREA_DISTRICTS: Record<string, string[]> = {
   香港島: ['中西區', '灣仔區', '東區', '南區'],
   九龍: ['油尖旺區', '深水埗區', '九龍城區', '黃大仙區', '觀塘區'],
@@ -47,7 +45,6 @@ const LABELS = {
   district: '地區',
   rentPerMonth: '月租',
   roomCount: (n: number) => `${n} 個單位`,
-  allUnits: '全部',
   codeRoom: (code: string) => `${code}房`,
   langHant: '繁體中文',
   langHans: '简体中文',
@@ -107,7 +104,7 @@ export function initSearchApp(root: HTMLElement): void {
   let hasSearched = false;
   let activeBuilding: BuildingGroup | null = null;
   let activeMediaIndex = 0;
-  let selectedUnit: UnitSelection = 'all';
+  let selectedUnit = 0;
 
   const els = {
     langHant: root.querySelector<HTMLButtonElement>('#lang-hant')!,
@@ -375,19 +372,11 @@ export function initSearchApp(root: HTMLElement): void {
   }
 
   function buildMedia(group: BuildingGroup): MediaItem[] {
-    if (selectedUnit === 'all') {
-      const items: MediaItem[] = [];
-      group.rooms.forEach((room, i) => {
-        items.push(...mediaForRoom(room, i));
-      });
-      return items;
-    }
     const room = group.rooms[selectedUnit];
     return room ? mediaForRoom(room, selectedUnit) : [];
   }
 
   function selectionLabelText(group: BuildingGroup): string {
-    if (selectedUnit === 'all') return t(LABELS.allUnits, lang);
     const room = group.rooms[selectedUnit];
     if (!room) return '';
     return t(LABELS.codeRoom(room['code name'] || String(selectedUnit + 1)), lang);
@@ -401,7 +390,7 @@ export function initSearchApp(root: HTMLElement): void {
     renderDetail();
   }
 
-  function selectUnit(next: UnitSelection): void {
+  function selectUnit(next: number): void {
     selectedUnit = next;
     activeMediaIndex = 0;
     renderDetail();
@@ -471,21 +460,6 @@ export function initSearchApp(root: HTMLElement): void {
     });
 
     els.unitsList.innerHTML = '';
-    const showAll = group.rooms.length >= 2;
-    if (showAll) {
-      const li = document.createElement('li');
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = `unit-card${selectedUnit === 'all' ? ' selected' : ''}`;
-      const line1 = document.createElement('p');
-      line1.className = 'unit-code';
-      line1.textContent = t(LABELS.allUnits, lang);
-      btn.append(line1);
-      btn.addEventListener('click', () => selectUnit('all'));
-      li.append(btn);
-      els.unitsList.append(li);
-    }
-
     group.rooms.forEach((room, index) => {
       const li = document.createElement('li');
       const btn = document.createElement('button');
