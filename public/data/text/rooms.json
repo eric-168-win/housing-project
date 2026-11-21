@@ -3,36 +3,57 @@
     "district": "九龍城區",
     "building": "寶石戲院大廈",
     "code name": "A",
-    "gender": "m",
-    "rent": 18500,
-    "image": ["room01/1.png", "room01/2.png", "room01/3.png"],
-    "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
+    "gender": "",
+    "rent": 6900,
+    "image": [
+      "gem building/A1.jpg",
+      "gem building/A2.jpg",
+      "gem building/A3.jpg",
+      "gem building/A4.jpg",
+      "gem building/A5.jpg",
+      "gem building/A6.jpg",
+      "gem building/A7.jpg",
+      "gem building/A8.jpg"
+    ],
+    "youtube link": "https://youtube.com/shorts/na23ItwIWAE?feature=share"
   },
   {
-    "district": "灣仔區",
-    "building": "灣仔軒尼詩大廈",
-    "code name": "A",
-    "gender": "f",
-    "rent": 14200,
-    "image": ["room02/1.png", "room02/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-  },
-  {
-    "district": "灣仔區",
-    "building": "灣仔軒尼詩大廈",
+    "district": "九龍城區",
+    "building": "寶石戲院大廈",
     "code name": "B",
     "gender": "",
-    "rent": 12800,
-    "image": ["room03/1.png", "room03/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=EngW7tLk6R8"
+    "rent": 5950,
+    "image": [
+      "gem building/B1.jpg",
+      "gem building/B2.jpg",
+      "gem building/B3.jpg",
+      "gem building/B4.jpg"
+    ],
+    "youtube link": "https://youtube.com/shorts/cO0u5wT0jJE?feature=share"
   },
   {
-    "district": "東區",
-    "building": "太古城中心單位",
-    "code name": "A",
-    "gender": "m",
-    "rent": 21000,
-    "image": ["room03/1.png", "room03/2.png", "room03/3.png"],
-    "youtube link": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
+    "district": "九龍城區",
+    "building": "寶石戲院大廈",
+    "code name": "C",
+    "gender": "",
+    "rent": 6800,
+    "image": [
+      "gem building/C1.jpg",
+      "gem building/C2.jpg",
+      "gem building/C3.jpg"
+    ],
+    "youtube link": "https://youtube.com/shorts/bNpA3BbOo7w?feature=share"
+  },
+  {
+    "district": "九龍城區",
+    "building": "寶石戲院大廈",
+    "code name": "D",
+    "gender": "",
+    "rent": 4800,
+    "image": [
+      "gem building/D1.jpg",
+      "gem building/D2.jpg"
+    ],
+    "youtube link": "https://youtube.com/shorts/nokaQEPmcrk?feature=share"
   }
 ]
