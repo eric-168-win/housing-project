@@ -4,23 +4,22 @@
     "building": "中環廣場服務式公寓",
     "code name": "A",
     "rent": 18500,
-    "image": ["room01/1.png", "room01/2.png", "room01/3.png"],
+    "image": [
+      "room01/1.png",
+      "room01/2.png",
+      "room01/3.png"
+    ],
     "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
-  },
-  {
-    "district": "中西區",
-    "building": "中環廣場服務式公寓",
-    "code name": "B",
-    "rent": 16800,
-    "image": ["room01/2.png", "room01/1.png", "room01/3.png"],
-    "youtube link": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
   },
   {
     "district": "灣仔區",
     "building": "灣仔軒尼詩大廈",
     "code name": "A",
     "rent": 14200,
-    "image": ["room02/1.png", "room02/2.png"],
+    "image": [
+      "room02/1.png",
+      "room02/2.png"
+    ],
     "youtube link": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
   },
   {
@@ -28,207 +27,22 @@
     "building": "灣仔軒尼詩大廈",
     "code name": "B",
     "rent": 12800,
-    "image": ["room02/2.png", "room02/1.png"],
+    "image": [
+      "room03/1.png",
+      "room03/2.png"
+    ],
     "youtube link": "https://www.youtube.com/watch?v=EngW7tLk6R8"
-  },
-  {
-    "district": "灣仔區",
-    "building": "灣仔軒尼詩大廈",
-    "code name": "C",
-    "rent": 15500,
-    "image": ["room02/1.png", "room02/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
   },
   {
     "district": "東區",
     "building": "太古城中心單位",
     "code name": "A",
     "rent": 21000,
-    "image": ["room03/1.png", "room03/2.png", "room03/3.png"],
+    "image": [
+      "room03/1.png",
+      "room03/2.png",
+      "room03/3.png"
+    ],
     "youtube link": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
-  },
-  {
-    "district": "東區",
-    "building": "太古城中心單位",
-    "code name": "B",
-    "rent": 19800,
-    "image": ["room03/2.png", "room03/3.png", "room03/1.png"],
-    "youtube link": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-  },
-  {
-    "district": "南區",
-    "building": "香港仔海傍花園",
-    "code name": "A",
-    "rent": 11500,
-    "image": ["room04/1.png", "room04/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=EngW7tLk6R8"
-  },
-  {
-    "district": "油尖旺區",
-    "building": "尖沙咀海港城公寓",
-    "code name": "A",
-    "rent": 22000,
-    "image": ["room05/1.png", "room05/2.png", "room05/3.png"],
-    "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
-  },
-  {
-    "district": "油尖旺區",
-    "building": "尖沙咀海港城公寓",
-    "code name": "B",
-    "rent": 20500,
-    "image": ["room05/2.png", "room05/1.png", "room05/3.png"],
-    "youtube link": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
-  },
-  {
-    "district": "油尖旺區",
-    "building": "尖沙咀海港城公寓",
-    "code name": "C",
-    "rent": 23800,
-    "image": ["room05/3.png", "room05/1.png", "room05/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-  },
-  {
-    "district": "深水埗區",
-    "building": "深水埗西九龍中心旁",
-    "code name": "A",
-    "rent": 9800,
-    "image": ["room06/1.png", "room06/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=EngW7tLk6R8"
-  },
-  {
-    "district": "深水埗區",
-    "building": "深水埗西九龍中心旁",
-    "code name": "B",
-    "rent": 10500,
-    "image": ["room06/2.png", "room06/1.png"],
-    "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
-  },
-  {
-    "district": "九龍城區",
-    "building": "九龍城衙前圍道樓",
-    "code name": "A",
-    "rent": 13200,
-    "image": ["room07/1.png", "room07/2.png", "room07/3.png"],
-    "youtube link": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
-  },
-  {
-    "district": "黃大仙區",
-    "building": "黃大仙龍翔中心",
-    "code name": "A",
-    "rent": 11000,
-    "image": ["room08/1.png", "room08/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-  },
-  {
-    "district": "觀塘區",
-    "building": "觀塘創紀之城公寓",
-    "code name": "A",
-    "rent": 14800,
-    "image": ["room09/1.png", "room09/2.png", "room09/3.png"],
-    "youtube link": "https://www.youtube.com/watch?v=EngW7tLk6R8"
-  },
-  {
-    "district": "觀塘區",
-    "building": "觀塘創紀之城公寓",
-    "code name": "B",
-    "rent": 15600,
-    "image": ["room09/2.png", "room09/1.png", "room09/3.png"],
-    "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
-  },
-  {
-    "district": "葵青區",
-    "building": "葵芳新都會廣場旁",
-    "code name": "A",
-    "rent": 10200,
-    "image": ["room10/1.png", "room10/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
-  },
-  {
-    "district": "荃灣區",
-    "building": "荃灣廣場服務式單位",
-    "code name": "A",
-    "rent": 11800,
-    "image": ["room11/1.png", "room11/2.png", "room11/3.png", "room11/4.png"],
-    "youtube link": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-  },
-  {
-    "district": "荃灣區",
-    "building": "荃灣廣場服務式單位",
-    "code name": "B",
-    "rent": 12500,
-    "image": ["room11/2.png", "room11/3.png", "room11/1.png", "room11/4.png"],
-    "youtube link": "https://www.youtube.com/watch?v=EngW7tLk6R8"
-  },
-  {
-    "district": "屯門區",
-    "building": "屯門市廣場雅緻閣",
-    "code name": "A",
-    "rent": 8900,
-    "image": ["room12/1.png", "room12/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
-  },
-  {
-    "district": "元朗區",
-    "building": "元朗形點雅舍",
-    "code name": "A",
-    "rent": 9500,
-    "image": ["room01/1.png", "room01/3.png"],
-    "youtube link": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
-  },
-  {
-    "district": "北區",
-    "building": "上水廣場精選單位",
-    "code name": "A",
-    "rent": 8700,
-    "image": ["room02/1.png", "room02/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-  },
-  {
-    "district": "大埔區",
-    "building": "大埔超級城公寓",
-    "code name": "A",
-    "rent": 9200,
-    "image": ["room03/1.png", "room03/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=EngW7tLk6R8"
-  },
-  {
-    "district": "沙田區",
-    "building": "沙田新城市廣場旁",
-    "code name": "A",
-    "rent": 13500,
-    "image": ["room04/1.png", "room04/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
-  },
-  {
-    "district": "沙田區",
-    "building": "沙田新城市廣場旁",
-    "code name": "B",
-    "rent": 14200,
-    "image": ["room04/2.png", "room04/1.png"],
-    "youtube link": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
-  },
-  {
-    "district": "西貢區",
-    "building": "將軍澳東港城單位",
-    "code name": "A",
-    "rent": 12800,
-    "image": ["room05/1.png", "room05/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-  },
-  {
-    "district": "離島區",
-    "building": "東涌市中心海景樓",
-    "code name": "A",
-    "rent": 10800,
-    "image": ["room06/1.png", "room06/2.png"],
-    "youtube link": "https://www.youtube.com/watch?v=EngW7tLk6R8"
-  },
-  {
-    "district": "離島區",
-    "building": "東涌市中心海景樓",
-    "code name": "B",
-    "rent": 11500,
-    "image": ["room06/2.png", "room06/1.png"],
-    "youtube link": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
   }
 ]
