@@ -12,26 +12,24 @@ In the Sheet: **住房項目 → update rooms data**
 
 ## One-time setup
 
-### 1. clasp login & push
+### 1. clasp (already set up)
 
-From the repo root (Windows PowerShell):
+Bound script on Sheet `rooms`:
 
-```sh
-clasp login
-cd gas
-clasp create --type sheets --title "住房項目 Sync" --parentId 14WvEtQWAxbwLyKGr-3bOVAR096sfJYdhp_m17plcQFg --rootDir .
-```
+- Script ID: `1OImg88Kk6TWf5hizdvd2D91pxiC5e5jnZANt6nr70e8mjRTVC1VK7oEA`
+- Editor: https://script.google.com/d/1OImg88Kk6TWf5hizdvd2D91pxiC5e5jnZANt6nr70e8mjRTVC1VK7oEA/edit
+- Sheet: https://docs.google.com/spreadsheets/d/14WvEtQWAxbwLyKGr-3bOVAR096sfJYdhp_m17plcQFg/edit
 
-If `.clasp.json` already exists with a `scriptId`, skip create and run:
+To push local edits later:
 
 ```sh
 cd gas
 clasp push
 ```
 
-Then open the script: `clasp open-script` (or Extensions → Apps Script in the Sheet).
+Open the script: `clasp open-script` (or **Extensions → Apps Script** in the Sheet).
 
-Authorize the script when prompted (Sheets, Drive read, external requests).
+Authorize when prompted (Sheets, Drive read, external URL fetch).
 
 ### 2. GitHub Fine-grained PAT → Script Property
 
