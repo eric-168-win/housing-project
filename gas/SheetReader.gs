@@ -25,10 +25,12 @@ function readRoomsFromSheet_() {
   });
 
   var idx = {
-    building: headers.indexOf('building name'),
     district: headers.indexOf('district'),
+    building: headers.indexOf('building'),
+    codeName: headers.indexOf('code name'),
     rent: headers.indexOf('rent'),
-    image: headers.indexOf('image')
+    image: headers.indexOf('image'),
+    youtube: headers.indexOf('youtube link')
   };
 
   var rooms = [];
@@ -38,22 +40,34 @@ function readRoomsFromSheet_() {
     var row = values[r];
     var building = String(row[idx.building] || '').trim();
     var district = String(row[idx.district] || '').trim();
+    var codeName = String(row[idx.codeName] || '').trim();
     var rentRaw = row[idx.rent];
     var imageRaw = String(row[idx.image] || '').trim();
+    var youtube = String(row[idx.youtube] || '').trim();
 
-    if (!building && !district && !imageRaw && (rentRaw === '' || rentRaw === null || rentRaw === undefined)) {
+    if (
+      !building &&
+      !district &&
+      !codeName &&
+      !imageRaw &&
+      !youtube &&
+      (rentRaw === '' || rentRaw === null || rentRaw === undefined)
+    ) {
       continue; // skip blank rows
     }
     if (!building) {
-      throw new Error('Row ' + (r + 1) + ': building name is required.');
+      throw new Error('Row ' + (r + 1) + ': building is required.');
     }
 
     var images = imageRaw
-      ? imageRaw.split(';').map(function (p) {
-          return String(p).trim().replace(/^\/+/, '');
-        }).filter(function (p) {
-          return p.length > 0;
-        })
+      ? imageRaw
+          .split(';')
+          .map(function (p) {
+            return String(p).trim().replace(/^\/+/, '');
+          })
+          .filter(function (p) {
+            return p.length > 0;
+          })
       : [];
 
     images.forEach(function (p) {
@@ -66,10 +80,12 @@ function readRoomsFromSheet_() {
     }
 
     rooms.push({
-      'building name': building,
       district: district,
+      building: building,
+      'code name': codeName,
       rent: rent,
-      image: images
+      image: images,
+      'youtube link': youtube
     });
   }
 

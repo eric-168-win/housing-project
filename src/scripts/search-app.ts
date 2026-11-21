@@ -1,10 +1,12 @@
 import { Converter } from 'opencc-js/t2cn';
 
 export type Room = {
-  'building name': string;
   district: string;
+  building: string;
+  'code name': string;
   rent: number | string;
   image: string[];
+  'youtube link'?: string;
 };
 
 export type BuildingGroup = {
@@ -14,6 +16,12 @@ export type BuildingGroup = {
 };
 
 type Lang = 'zh-Hant' | 'zh-Hans';
+
+type MediaItem =
+  | { kind: 'image'; src: string; roomIndex: number }
+  | { kind: 'youtube'; videoId: string; url: string; roomIndex: number };
+
+type UnitSelection = 'all' | number;
 
 const AREA_DISTRICTS: Record<string, string[]> = {
   香港島: ['中西區', '灣仔區', '東區', '南區'],
@@ -30,6 +38,7 @@ const LABELS = {
   search: '搜尋',
   clear: '清除',
   needSubDistrict: '請先選擇至少一個分區',
+  pickAreaFirst: '請先選擇主要地區',
   resultsCount: (n: number) => `約 ${n} 個樓宇結果`,
   emptyBeforeSearch: '選擇地區後按「搜尋」以顯示房源。',
   emptyNoResults: '沒有符合條件的房源。',
@@ -38,6 +47,8 @@ const LABELS = {
   district: '地區',
   rentPerMonth: '月租',
   roomCount: (n: number) => `${n} 個單位`,
+  allUnits: '全部',
+  codeRoom: (code: string) => `${code}房`,
   langHant: '繁體中文',
   langHans: '简体中文',
   hkd: (n: string | number) => `HK$ ${Number(n).toLocaleString('en-HK')}`,
@@ -57,6 +68,36 @@ function formatRent(rent: string | number, lang: Lang): string {
   return t(LABELS.hkd(rent), lang);
 }
 
+function youtubeId(url: string | undefined): string | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  if (!trimmed) return null;
+  try {
+    const u = new URL(trimmed);
+    if (u.hostname.includes('youtu.be')) {
+      const id = u.pathname.replace(/^\//, '').split('/')[0];
+      return id || null;
+    }
+    const v = u.searchParams.get('v');
+    if (v) return v;
+    const embed = u.pathname.match(/\/embed\/([^/]+)/);
+    if (embed) return embed[1];
+    const shorts = u.pathname.match(/\/shorts\/([^/]+)/);
+    if (shorts) return shorts[1];
+  } catch {
+    /* ignore */
+  }
+  return null;
+}
+
+function youtubeThumb(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+function youtubeEmbed(videoId: string): string {
+  return `https://www.youtube.com/embed/${videoId}?rel=0`;
+}
+
 export function initSearchApp(root: HTMLElement): void {
   let lang: Lang = 'zh-Hant';
   let rooms: Room[] = [];
@@ -65,7 +106,8 @@ export function initSearchApp(root: HTMLElement): void {
   let results: BuildingGroup[] = [];
   let hasSearched = false;
   let activeBuilding: BuildingGroup | null = null;
-  let activeImageIndex = 0;
+  let activeMediaIndex = 0;
+  let selectedUnit: UnitSelection = 'all';
 
   const els = {
     langHant: root.querySelector<HTMLButtonElement>('#lang-hant')!,
@@ -86,13 +128,42 @@ export function initSearchApp(root: HTMLElement): void {
     resultsList: root.querySelector<HTMLElement>('#results-list')!,
     emptyState: root.querySelector<HTMLElement>('#empty-state')!,
     backBtn: root.querySelector<HTMLButtonElement>('#back-btn')!,
+    selectionLabel: root.querySelector<HTMLElement>('#selection-label')!,
     detailTitle: root.querySelector<HTMLElement>('#detail-title')!,
     detailMeta: root.querySelector<HTMLElement>('#detail-meta')!,
     mainImage: root.querySelector<HTMLImageElement>('#main-image')!,
+    mainVideo: root.querySelector<HTMLIFrameElement>('#main-video')!,
     thumbs: root.querySelector<HTMLElement>('#thumbs')!,
     unitsTitle: root.querySelector<HTMLElement>('#units-title')!,
     unitsList: root.querySelector<HTMLElement>('#units-list')!,
   };
+
+  function districtsPresent(): Set<string> {
+    return new Set(rooms.map((r) => r.district).filter(Boolean));
+  }
+
+  function areasWithRooms(): string[] {
+    const present = districtsPresent();
+    return Object.keys(AREA_DISTRICTS).filter((area) =>
+      AREA_DISTRICTS[area].some((d) => present.has(d)),
+    );
+  }
+
+  function districtsWithRoomsIn(area: string): string[] {
+    const present = districtsPresent();
+    return AREA_DISTRICTS[area].filter((d) => present.has(d));
+  }
+
+  function applyDefaultFilters(): void {
+    selectedAreas.clear();
+    selectedDistricts.clear();
+    const areas = areasWithRooms();
+    if (areas.length === 1) {
+      selectedAreas.add(areas[0]);
+      const districts = districtsWithRoomsIn(areas[0]);
+      if (districts.length === 1) selectedDistricts.add(districts[0]);
+    }
+  }
 
   function renderChrome(): void {
     document.documentElement.lang = lang === 'zh-Hans' ? 'zh-Hans' : 'zh-Hant';
@@ -122,7 +193,7 @@ export function initSearchApp(root: HTMLElement): void {
 
   function renderAreaCheckboxes(): void {
     els.areaGroup.innerHTML = '';
-    for (const area of Object.keys(AREA_DISTRICTS)) {
+    for (const area of areasWithRooms()) {
       const label = document.createElement('label');
       label.className = 'checkbox-item';
       const input = document.createElement('input');
@@ -147,7 +218,7 @@ export function initSearchApp(root: HTMLElement): void {
     if (selectedAreas.size === 0) return [];
     const list: string[] = [];
     for (const area of selectedAreas) {
-      list.push(...AREA_DISTRICTS[area]);
+      list.push(...districtsWithRoomsIn(area));
     }
     return list;
   }
@@ -155,10 +226,17 @@ export function initSearchApp(root: HTMLElement): void {
   function renderDistrictCheckboxes(): void {
     const districts = availableDistricts();
     els.districtGroup.innerHTML = '';
+    if (selectedAreas.size === 0) {
+      const hint = document.createElement('span');
+      hint.className = 'result-snippet';
+      hint.textContent = t(LABELS.pickAreaFirst, lang);
+      els.districtGroup.append(hint);
+      return;
+    }
     if (districts.length === 0) {
       const hint = document.createElement('span');
       hint.className = 'result-snippet';
-      hint.textContent = t('請先選擇主要地區', lang);
+      hint.textContent = t(LABELS.emptyNoResults, lang);
       els.districtGroup.append(hint);
       return;
     }
@@ -188,7 +266,7 @@ export function initSearchApp(root: HTMLElement): void {
   function groupByBuilding(list: Room[]): BuildingGroup[] {
     const map = new Map<string, BuildingGroup>();
     for (const room of list) {
-      const name = room['building name'];
+      const name = room.building;
       let group = map.get(name);
       if (!group) {
         group = {
@@ -217,11 +295,10 @@ export function initSearchApp(root: HTMLElement): void {
   }
 
   function clearFilters(): void {
-    selectedAreas.clear();
-    selectedDistricts.clear();
     results = [];
     hasSearched = false;
     activeBuilding = null;
+    applyDefaultFilters();
     renderAreaCheckboxes();
     renderDistrictCheckboxes();
     updateSearchEnabled();
@@ -281,80 +358,163 @@ export function initSearchApp(root: HTMLElement): void {
     }
   }
 
-  function allImages(group: BuildingGroup): string[] {
-    const seen = new Set<string>();
-    const imgs: string[] = [];
-    for (const room of group.rooms) {
-      for (const rel of room.image) {
-        if (!seen.has(rel)) {
-          seen.add(rel);
-          imgs.push(rel);
-        }
-      }
+  function mediaForRoom(room: Room, roomIndex: number): MediaItem[] {
+    const items: MediaItem[] = room.image.map((src) => ({
+      kind: 'image' as const,
+      src,
+      roomIndex,
+    }));
+    const id = youtubeId(room['youtube link']);
+    if (id) {
+      items.push({
+        kind: 'youtube',
+        videoId: id,
+        url: room['youtube link']!.trim(),
+        roomIndex,
+      });
     }
-    return imgs.length ? imgs : [];
+    return items;
+  }
+
+  function buildMedia(group: BuildingGroup): MediaItem[] {
+    if (selectedUnit === 'all') {
+      const items: MediaItem[] = [];
+      group.rooms.forEach((room, i) => {
+        items.push(...mediaForRoom(room, i));
+      });
+      return items;
+    }
+    const room = group.rooms[selectedUnit];
+    return room ? mediaForRoom(room, selectedUnit) : [];
+  }
+
+  function selectionLabelText(group: BuildingGroup): string {
+    if (selectedUnit === 'all') return t(LABELS.allUnits, lang);
+    const room = group.rooms[selectedUnit];
+    if (!room) return '';
+    return t(LABELS.codeRoom(room['code name'] || String(selectedUnit + 1)), lang);
   }
 
   function openDetail(group: BuildingGroup): void {
     activeBuilding = group;
-    activeImageIndex = 0;
+    selectedUnit = group.rooms.length >= 2 ? 'all' : 0;
+    activeMediaIndex = 0;
     showDetail();
     renderDetail();
+  }
+
+  function selectUnit(next: UnitSelection): void {
+    selectedUnit = next;
+    activeMediaIndex = 0;
+    renderDetail();
+  }
+
+  function showMainMedia(item: MediaItem | undefined, buildingName: string): void {
+    if (!item) {
+      els.mainImage.hidden = false;
+      els.mainVideo.hidden = true;
+      els.mainVideo.removeAttribute('src');
+      els.mainImage.removeAttribute('src');
+      return;
+    }
+    if (item.kind === 'youtube') {
+      els.mainImage.hidden = true;
+      els.mainVideo.hidden = false;
+      els.mainVideo.src = youtubeEmbed(item.videoId);
+      els.mainVideo.title = t(buildingName, lang);
+    } else {
+      els.mainVideo.hidden = true;
+      els.mainVideo.removeAttribute('src');
+      els.mainImage.hidden = false;
+      els.mainImage.src = imageUrl(item.src);
+      els.mainImage.alt = t(buildingName, lang);
+    }
   }
 
   function renderDetail(): void {
     if (!activeBuilding) return;
     const group = activeBuilding;
-    const images = allImages(group);
+    const media = buildMedia(group);
+    if (activeMediaIndex >= media.length) activeMediaIndex = 0;
     const districts = [...new Set(group.rooms.map((r) => t(r.district, lang)))].join('、');
 
     els.pageTitle.textContent = t(group.buildingName, lang);
     els.detailTitle.textContent = t(group.buildingName, lang);
     els.detailMeta.textContent = `${t(LABELS.district, lang)}：${districts} · ${t(LABELS.roomCount(group.rooms.length), lang)}`;
     els.unitsTitle.textContent = t(LABELS.unitsInBuilding, lang);
+    els.selectionLabel.hidden = false;
+    els.selectionLabel.textContent = selectionLabelText(group);
 
-    const current = images[activeImageIndex] ?? images[0];
-    if (current) {
-      els.mainImage.src = imageUrl(current);
-      els.mainImage.alt = t(group.buildingName, lang);
-    }
+    showMainMedia(media[activeMediaIndex], group.buildingName);
 
     els.thumbs.innerHTML = '';
-    images.forEach((rel, i) => {
+    media.forEach((item, i) => {
       const thumb = document.createElement('button');
       thumb.type = 'button';
-      thumb.className = `thumb-btn${i === activeImageIndex ? ' active' : ''}`;
+      thumb.className = `thumb-btn${i === activeMediaIndex ? ' active' : ''}${item.kind === 'youtube' ? ' thumb-youtube' : ''}`;
       thumb.setAttribute('aria-label', `${i + 1}`);
-      const img = document.createElement('img');
-      img.src = imageUrl(rel);
-      img.alt = '';
-      thumb.append(img);
+      if (item.kind === 'image') {
+        const img = document.createElement('img');
+        img.src = imageUrl(item.src);
+        img.alt = '';
+        thumb.append(img);
+      } else {
+        const img = document.createElement('img');
+        img.src = youtubeThumb(item.videoId);
+        img.alt = 'YouTube';
+        const play = document.createElement('span');
+        play.className = 'thumb-play';
+        play.setAttribute('aria-hidden', 'true');
+        thumb.append(img, play);
+      }
       thumb.addEventListener('click', () => {
-        activeImageIndex = i;
+        activeMediaIndex = i;
         renderDetail();
       });
       els.thumbs.append(thumb);
     });
 
     els.unitsList.innerHTML = '';
-    for (const room of group.rooms) {
+    const showAll = group.rooms.length >= 2;
+    if (showAll) {
       const li = document.createElement('li');
-      li.className = 'unit-card';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `unit-card${selectedUnit === 'all' ? ' selected' : ''}`;
+      const line1 = document.createElement('p');
+      line1.className = 'unit-code';
+      line1.textContent = t(LABELS.allUnits, lang);
+      btn.append(line1);
+      btn.addEventListener('click', () => selectUnit('all'));
+      li.append(btn);
+      els.unitsList.append(li);
+    }
+
+    group.rooms.forEach((room, index) => {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `unit-card${selectedUnit === index ? ' selected' : ''}`;
+      const line1 = document.createElement('p');
+      line1.className = 'unit-code';
+      line1.textContent = t(LABELS.codeRoom(room['code name'] || String(index + 1)), lang);
       const rent = document.createElement('p');
       rent.className = 'unit-rent';
       rent.textContent = `${t(LABELS.rentPerMonth, lang)} ${formatRent(room.rent, lang)}`;
-      const district = document.createElement('div');
-      district.className = 'unit-district';
-      district.textContent = `${t(LABELS.district, lang)}：${t(room.district, lang)}`;
-      li.append(rent, district);
+      btn.append(line1, rent);
+      btn.addEventListener('click', () => selectUnit(index));
+      li.append(btn);
       els.unitsList.append(li);
-    }
+    });
   }
 
   function showSearch(): void {
     els.searchView.classList.add('visible');
     els.detailView.classList.remove('visible');
     els.pageTitle.textContent = t(LABELS.pageTitle, lang);
+    els.selectionLabel.hidden = true;
+    els.mainVideo.hidden = true;
+    els.mainVideo.removeAttribute('src');
   }
 
   function showDetail(): void {
@@ -389,15 +549,16 @@ export function initSearchApp(root: HTMLElement): void {
 
   async function boot(): Promise<void> {
     renderChrome();
-    renderAreaCheckboxes();
-    renderDistrictCheckboxes();
-    updateSearchEnabled();
     showSearch();
     renderResults();
 
     const res = await fetch('/data/text/rooms.json');
     if (!res.ok) throw new Error(`Failed to load rooms.json: ${res.status}`);
     rooms = (await res.json()) as Room[];
+    applyDefaultFilters();
+    renderAreaCheckboxes();
+    renderDistrictCheckboxes();
+    updateSearchEnabled();
   }
 
   void boot();

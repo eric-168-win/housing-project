@@ -12,5 +12,5 @@ var CONFIG = {
   IMAGE_REPO_PREFIX: 'public/data/image/',
   /** Script property key for Fine-grained GitHub PAT */
   GITHUB_PAT_PROPERTY: 'GITHUB_PAT',
-  REQUIRED_HEADERS: ['building name', 'district', 'rent', 'image']
+  REQUIRED_HEADERS: ['district', 'building', 'code name', 'rent', 'image', 'youtube link']
 };
