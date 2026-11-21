@@ -50,8 +50,8 @@ const LABELS = {
   genderMale: '只限男性',
   genderFemale: '只限女性',
   genderAny: '性別不限',
-  whatsapp: 'WhatsApp',
-  contactNote: '請提早至少1日及2日預約上門參觀。不要來電。謝謝。',
+  whatsapp: 'WhatsApp 連結(請按我)',
+  contactNote: '請提早至少1日預約上門參觀。不要來電。謝謝。',
   langHant: '繁體中文',
   langHans: '简体中文',
   hkd: (n: string | number) => `HK$ ${Number(n).toLocaleString('en-HK')}`,
@@ -201,7 +201,7 @@ export function initSearchApp(root: HTMLElement): void {
     els.prompt.textContent = t(LABELS.needSubDistrict, lang);
     els.backBtn.textContent = t(LABELS.back, lang);
     els.unitsTitle.textContent = t(LABELS.unitsInBuilding, lang);
-    els.whatsappLink.textContent = LABELS.whatsapp;
+    els.whatsappLink.textContent = t(LABELS.whatsapp, lang);
     els.contactNote.textContent = t(LABELS.contactNote, lang);
   }
 
@@ -446,7 +446,7 @@ export function initSearchApp(root: HTMLElement): void {
     els.pageTitle.textContent = t(LABELS.pageTitle, lang);
     els.detailTitle.textContent = t(group.buildingName, lang);
     els.unitsTitle.textContent = t(LABELS.unitsInBuilding, lang);
-    els.whatsappLink.textContent = LABELS.whatsapp;
+    els.whatsappLink.textContent = t(LABELS.whatsapp, lang);
     els.contactNote.textContent = t(LABELS.contactNote, lang);
     els.selectionLabel.hidden = false;
     els.selectionLabel.textContent = selectionLabelText(group);

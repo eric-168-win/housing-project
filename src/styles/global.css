@@ -561,12 +561,11 @@ select {
   font-size: 16px;
   font-weight: 700;
   color: #128c7e;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .whatsapp-link:hover {
   color: #075e54;
-  text-decoration: underline;
 }
 
 .contact-note {
